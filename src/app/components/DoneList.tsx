@@ -7,7 +7,7 @@ import Todo from './Todo';
 export default function DoneList() {
   const { todoList } = useContext(TodoContext);
 
-  const completeTodos = todoList.filter((todo) => todo.isDone === true);
+  const completeTodos = todoList.filter((todo) => todo.isCompleted === true);
   return (
     <>
       {/* done 제목 */}

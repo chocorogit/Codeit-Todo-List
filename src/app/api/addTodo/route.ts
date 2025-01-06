@@ -6,17 +6,14 @@ export async function POST(req: Request) {
     const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
     // 외부 API 서버 URL
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    const requestBody = await req.json();
 
-    // 요청 본문에서 필요한 필드만 추출
-    const { ...filteredBody } = requestBody;
     // POST 요청
     const res = await fetch(`${apiUrl}/${tenantId}/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(filteredBody),
+      body: JSON.stringify(await req.json()),
     });
     const data = await res.json();
 

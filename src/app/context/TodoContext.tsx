@@ -4,8 +4,8 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 // Todo 타입 정의
 export type TodoType = {
   id: number;
-  todo: string;
-  isDone: boolean;
+  name: string;
+  isCompleted: boolean;
 };
 
 // TodoContext 상태, 함수 타입
@@ -49,25 +49,43 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   // 할 일 추가하기
-  const addTodo = (todo: string) => {
+  const addTodo = async (todo: string) => {
     // 공백일 경우 막기
     if (todo.trim() === '') {
       return alert('공백은 입력할 수 없습니다!');
     }
     const newTodo = {
-      id: todoList.length + 1,
-      todo,
-      isDone: false,
+      // id: todoList.length + 1,
+      name: todo,
+      // isCompleted: false,
     };
-    // 새로운 Todo 추가 후 TodoList 상태에 저장
-    setTodoList((prev) => [...prev, newTodo]);
+
+    // API 요청 (서버에 할 일 추가)
+    try {
+      const res = await fetch('/api/addTodo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newTodo),
+      });
+      const data = await res.json();
+
+      // 새로운 Todo 추가 후 TodoList 상태에 저장
+      setTodoList((prev) => [...prev, data.data]);
+
+      console.log('할 일 추가 성공:', data);
+    } catch (err) {
+      console.error('투두리스트에 할 일 추가에 문제가 발생했습니다.', err);
+    }
+  };
 
   // 할 일 완료 상태 토글 변경
   const toggleTodoStatus = (todoId: number) => {
-    // 해당 Todo의 isDone 값을 변경 후 TodoList 상태에 저장
+    // 해당 Todo의 isCompleted 값을 변경 후 TodoList 상태에 저장
     setTodoList((prevTodos) =>
       prevTodos.map((todo) =>
-        todo.id === todoId ? { ...todo, isDone: !todo.isDone } : todo
+        todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo
       )
     );
   };

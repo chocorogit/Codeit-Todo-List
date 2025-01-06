@@ -6,7 +6,9 @@ import Todo from './Todo';
 
 export default function TodoList() {
   const { todoList } = useContext(TodoContext);
-  const incompleteTodoList = todoList.filter((todo) => todo.isDone === false);
+  const incompleteTodoList = todoList.filter(
+    (todo) => todo.isCompleted === false
+  );
   return (
     <div className={'mb-12 tablet:mb-0'}>
       <Image

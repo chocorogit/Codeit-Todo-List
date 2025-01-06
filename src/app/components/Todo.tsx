@@ -29,7 +29,7 @@ export default function Todo({ todoList }: TodoPropsType) {
               <Image
                 className={'absolute top-1/2 translate-y-[-50%] left-[12px]'}
                 src={
-                  todo.isDone === true
+                  todo.isCompleted === true
                     ? '/images/checked.svg'
                     : '/images/unchecked.svg'
                 }
@@ -38,7 +38,7 @@ export default function Todo({ todoList }: TodoPropsType) {
                 alt={'unchecked-image'}
               />
             </button>
-            {todo.todo}
+            {todo.name}
           </li>
         ))}
     </ul>
