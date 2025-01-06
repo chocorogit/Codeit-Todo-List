@@ -23,7 +23,7 @@ export default function Todo({ todoList }: TodoPropsType) {
             <button
               type={'button'}
               onClick={() => {
-                toggleTodoStatus(todo.id);
+                toggleTodoStatus(todo.id, todo.isCompleted);
               }}
             >
               <Image

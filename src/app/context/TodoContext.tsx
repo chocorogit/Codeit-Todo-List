@@ -12,7 +12,7 @@ export type TodoType = {
 type TodoContextType = {
   todoList: TodoType[];
   addTodo: (todo: string) => void;
-  toggleTodoStatus: (todoId: number) => void;
+  toggleTodoStatus: (todoId: number, todoStatus: boolean) => void;
 };
 
 // TodoContext 생성
@@ -81,13 +81,28 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // 할 일 완료 상태 토글 변경
-  const toggleTodoStatus = (todoId: number) => {
+  const toggleTodoStatus = async (itemId: number, todoStatus: boolean) => {
+    console.log('itemId', itemId);
     // 해당 Todo의 isCompleted 값을 변경 후 TodoList 상태에 저장
     setTodoList((prevTodos) =>
       prevTodos.map((todo) =>
-        todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo
+        todo.id === itemId ? { ...todo, isCompleted: !todo.isCompleted } : todo
       )
     );
+
+    try {
+      const res = await fetch(`/api/toggleTodoStatus/${itemId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isCompleted: !todoStatus }),
+      });
+      const data = await res.json();
+      console.log('할 일 상태 변경 성공:', data);
+    } catch (err) {
+      console.error('상태 변경에 문제가 발생했습니다:', err);
+    }
   };
 
   return (
