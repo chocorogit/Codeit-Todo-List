@@ -9,8 +9,18 @@ export default function Form() {
 
   const { addTodo } = useContext(TodoContext);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // 새로고침 방지
+    e.preventDefault();
+    // 할 일 추가
+    addTodo(inputValue);
+    // 입력창 초기화
+    setInputValue('');
+  };
+
   return (
     <form
+      onSubmit={handleSubmit}
       className={
         'flex justify-between w-full h-[56px] items-center gap-2 mb-4 tablet:mb-6'
       }
