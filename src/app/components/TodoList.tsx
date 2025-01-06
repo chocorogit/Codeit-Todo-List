@@ -1,6 +1,10 @@
+'use client';
 import Image from 'next/image';
+import { useContext } from 'react';
+import { TodoContext } from '../context/TodoContext';
 
 export default function TodoList() {
+  const { todoList } = useContext(TodoContext);
   return (
     <div className={'mb-12 tablet:mb-0'}>
       <Image
@@ -17,11 +21,19 @@ export default function TodoList() {
           height={120}
           alt={'empty-done-image'}
         />
-        <p className={'text-slate-400'}>
-          할 일이 없어요.
-          <br />
-          TODO를 새롭게 추가해주세요!
-        </p>
+        {todoList.length > 0 ? (
+          <div>
+            {todoList.map((todo) => (
+              <div key={todo.id}>{todo.todo}</div>
+            ))}
+          </div>
+        ) : (
+          <p className={'text-slate-400'}>
+            할 일이 없어요.
+            <br />
+            TODO를 새롭게 추가해주세요!
+          </p>
+        )}
       </div>
     </div>
   );

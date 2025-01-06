@@ -1,12 +1,29 @@
-'use client';
 import Image from 'next/image';
 import { useState } from 'react';
 
-export default function Button() {
-  const addSmallBtn = '/images/Type=Add, Size=Small, State=Default.svg';
-  const addLargeBtn = '/images/Type=Add, Size=Large, State=Default.svg';
-  const addSmallBtnActive = '/images/Type=Add, Size=Small, State=Active.svg';
-  const addLargeBtnActive = '/images/Type=Add, Size=Large, State=Active.svg';
+type ButtonPropsType = {
+  inputValue: string;
+  setInputValue: (InputValue: string) => void;
+  addTodo: (todo: string) => void;
+};
+
+export default function Button({
+  inputValue,
+  setInputValue,
+  addTodo,
+}: ButtonPropsType) {
+  // 버튼 이미지
+  // 크기, 활성화별 구분
+  const buttonImages = {
+    small: {
+      default: '/images/Type=Add, Size=Small, State=Default.svg',
+      active: '/images/Type=Add, Size=Small, State=Active.svg',
+    },
+    large: {
+      default: '/images/Type=Add, Size=Large, State=Default.svg',
+      active: '/images/Type=Add, Size=Large, State=Active.svg',
+    },
+  };
 
   const [isActive, setIsActive] = useState(false);
 
@@ -18,11 +35,19 @@ export default function Button() {
         }
         onMouseDown={() => setIsActive(true)}
         onMouseUp={() => setIsActive(false)}
+        onClick={() => {
+          addTodo(inputValue);
+          setInputValue('');
+        }}
       >
         {/* 비활성화 상태 */}
         <Image
           className={'tablet:hidden'}
-          src={isActive ? addSmallBtnActive : addSmallBtn}
+          src={
+            isActive
+              ? buttonImages['small']['active']
+              : buttonImages['small']['default']
+          }
           width={56}
           height={56}
           alt={'Type=Add, Size=Small, State=Default'}
@@ -30,7 +55,11 @@ export default function Button() {
         {/* 비활성화 상태 */}
         <Image
           className={'hidden tablet:block'}
-          src={isActive ? addLargeBtnActive : addLargeBtn}
+          src={
+            isActive
+              ? buttonImages['large']['active']
+              : buttonImages['large']['default']
+          }
           width={168}
           height={56}
           alt={'Type=Add, Size=Large, State=Default'}

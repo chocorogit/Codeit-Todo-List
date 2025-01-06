@@ -11,17 +11,19 @@ export default function Header() {
       <h1 className={'cursor-pointer'}>
         <Link href='/'>
           <Image
+            className={'tablet:hidden'}
             src='images/mobile-logo.svg'
             width='71'
             height='40'
             alt='doit-mobile-logo'
           />
-          {/* <Image
+          <Image
+            className={'hidden tablet:block'}
             src='images/logo.svg'
             width='151'
             height='40'
             alt='doit-logo'
-          /> */}
+          />
         </Link>
       </h1>
     </header>
