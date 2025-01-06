@@ -1,7 +1,7 @@
 'use client';
 import { createContext, ReactNode, useState } from 'react';
 
-type TodoType = {
+export type TodoType = {
   id: number;
   todo: string;
   isDone: boolean;
@@ -24,6 +24,9 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
   const [todoList, setTodoList] = useState<TodoType[]>([]);
 
   const addTodo = (todo: string) => {
+    if (todo.trim() === '') {
+      return alert('공백은 입력할 수 없습니다!');
+    }
     const newTodo = {
       id: todoList.length + 1,
       todo,
