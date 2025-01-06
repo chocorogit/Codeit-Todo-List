@@ -10,11 +10,13 @@ export type TodoType = {
 type TodoContextType = {
   todoList: TodoType[];
   addTodo: (todo: string) => void;
+  toggleTodoStatus: (todoId: number) => void;
 };
 
 export const TodoContext = createContext<TodoContextType>({
   todoList: [],
   addTodo: () => {},
+  toggleTodoStatus: () => {},
 });
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
@@ -35,8 +37,16 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     setTodoList((prevTodo) => [...prevTodo, newTodo]);
   };
 
+  const toggleTodoStatus = (todoId: number) => {
+    setTodoList((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === todoId ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
   return (
-    <TodoContext.Provider value={{ todoList, addTodo }}>
+    <TodoContext.Provider value={{ todoList, addTodo, toggleTodoStatus }}>
       {children}
     </TodoContext.Provider>
   );

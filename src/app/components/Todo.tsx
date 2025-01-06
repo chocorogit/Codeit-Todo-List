@@ -1,16 +1,17 @@
 'use client';
 import Image from 'next/image';
-import { TodoType } from '../context/TodoContext';
-import { useState } from 'react';
+import { TodoContext, TodoType } from '../context/TodoContext';
+import { useContext } from 'react';
 
-type TodoListType = {
+type TodoPropsType = {
   todoList: TodoType[];
 };
 
-export default function Todo({ todoList }: TodoListType) {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+export default function Todo({ todoList }: TodoPropsType) {
+  const { toggleTodoStatus } = useContext(TodoContext);
+
   return (
-    <ul className={'flex flex-col gap-4 w-full'}>
+    <ul className={'flex flex-col gap-4 w-full text-center'}>
       {todoList &&
         todoList.map((todo) => (
           <li
@@ -22,13 +23,15 @@ export default function Todo({ todoList }: TodoListType) {
             <button
               type={'button'}
               onClick={() => {
-                setIsChecked(!isChecked);
+                toggleTodoStatus(todo.id);
               }}
             >
               <Image
                 className={'absolute top-1/2 translate-y-[-50%] left-[12px]'}
                 src={
-                  isChecked ? '/images/checked.svg' : '/images/unchecked.svg'
+                  todo.isDone === true
+                    ? '/images/checked.svg'
+                    : '/images/unchecked.svg'
                 }
                 width={32}
                 height={32}

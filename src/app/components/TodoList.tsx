@@ -6,6 +6,7 @@ import Todo from './Todo';
 
 export default function TodoList() {
   const { todoList } = useContext(TodoContext);
+  const incompleteTodoList = todoList.filter((todo) => todo.isDone === false);
   return (
     <div className={'mb-12 tablet:mb-0'}>
       <Image
@@ -22,7 +23,7 @@ export default function TodoList() {
           //     <div key={todo.id}>{todo.todo}</div>
           //   ))}
           // </div>
-          <Todo todoList={todoList} />
+          <Todo todoList={incompleteTodoList} />
         ) : (
           <>
             <Image

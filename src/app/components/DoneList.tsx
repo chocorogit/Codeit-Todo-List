@@ -1,9 +1,13 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { TodoContext } from '../context/TodoContext';
+import Todo from './Todo';
 
 export default function DoneList() {
-  const [doneList, setDoneList] = useState<string[]>([]);
+  const { todoList } = useContext(TodoContext);
+
+  const completeTodos = todoList.filter((todo) => todo.isDone === true);
   return (
     <>
       {/* done 제목 */}
@@ -15,8 +19,8 @@ export default function DoneList() {
         alt={'todo-title-image'}
       />
       {/* done 리스트 영역 */}
-      {doneList.length > 0 ? (
-        <div>{doneList}</div>
+      {completeTodos.length > 0 ? (
+        <Todo todoList={completeTodos} />
       ) : (
         <div className={'flex flex-col items-center w-full h-full text-center'}>
           <Image
