@@ -11,9 +11,6 @@ export default function Form() {
 
   return (
     <form
-      onClick={(e) => {
-        e.preventDefault();
-      }}
       className={
         'flex justify-between w-full h-[56px] items-center gap-2 mb-4 tablet:mb-6'
       }

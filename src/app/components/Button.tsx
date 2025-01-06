@@ -2,12 +2,14 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 type ButtonPropsType = {
+  type?: 'button' | 'submit' | 'reset';
   inputValue: string;
   setInputValue: (InputValue: string) => void;
   addTodo: (todo: string) => void;
 };
 
 export default function Button({
+  type = 'button',
   inputValue,
   setInputValue,
   addTodo,
@@ -30,6 +32,7 @@ export default function Button({
   return (
     <>
       <button
+        type={type}
         className={
           'flex items-center justify-end min-h-16 tablet:min-w-[168px] min-w-16'
         }
