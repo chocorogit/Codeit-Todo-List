@@ -13,6 +13,7 @@ type TodoContextType = {
   todoList: TodoType[];
   addTodo: (todo: string) => void;
   toggleTodoStatus: (todoId: number, todoStatus: boolean) => void;
+  deleteTodo: (itemId: number) => void;
 };
 
 // TodoContext 생성
@@ -20,6 +21,7 @@ export const TodoContext = createContext<TodoContextType>({
   todoList: [],
   addTodo: () => {},
   toggleTodoStatus: () => {},
+  deleteTodo: () => {},
 });
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
@@ -48,7 +50,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     fetchTodoData();
   }, []);
 
-  // 할 일 추가하기
+  // 할 일 추가하기 _________________
   const addTodo = async (todo: string) => {
     // 공백일 경우 막기
     if (todo.trim() === '') {
@@ -80,7 +82,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // 할 일 완료 상태 토글 변경
+  // 할 일 완료 상태 토글 변경 _________________
   const toggleTodoStatus = async (itemId: number, todoStatus: boolean) => {
     console.log('itemId', itemId);
     // 해당 Todo의 isCompleted 값을 변경 후 TodoList 상태에 저장
@@ -105,8 +107,34 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // 할 일 삭제 _________________
+
+  const deleteTodo = async (itemId: number) => {
+    try {
+      const res = await fetch(`/api/deleteTodo/${itemId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) throw new Error('삭제 실패');
+
+      const data = await res.json();
+      console.log('data', data);
+
+      setTodoList((prev) => prev.filter((todo) => todo.id !== itemId));
+
+      return data;
+    } catch (err) {
+      console.error('할 일 삭제에 문제가 발생했습니다:', err);
+    }
+  };
+
   return (
-    <TodoContext.Provider value={{ todoList, addTodo, toggleTodoStatus }}>
+    <TodoContext.Provider
+      value={{ todoList, addTodo, toggleTodoStatus, deleteTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );
