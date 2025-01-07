@@ -13,11 +13,11 @@ export default function Input({
 }: InputPropsType) {
   return (
     // 전체 영역 박스
-    <div className={'relative w-full  min-h-[54px]'}>
+    <div className={'relative w-full min-h-[54px]'}>
       {/* 입력창 */}
       <input
         className={
-          'absolute z-10 w-full h-[53px] rounded-full border-2 border-slate-900 px-6 text-slate-900 placeholder-slate-500 bg-slate-100'
+          'absolute z-10 w-full h-[53px] rounded-full border-2 border-slate-900 px-6 text-slate-900 placeholder-slate-500'
         }
         type='text'
         value={inputValue}

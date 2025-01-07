@@ -18,7 +18,7 @@ export default function TodoList() {
         height={36}
         alt={'todo-title-image'}
       />
-      <div className={'flex flex-col items-center w-full h-full text-slate'}>
+      <div className={'flex flex-col items-center w-full h-full'}>
         {todoList.length > 0 ? (
           // <div>
           //   {todoList.map((todo) => (
