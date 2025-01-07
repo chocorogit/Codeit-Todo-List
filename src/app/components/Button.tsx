@@ -3,7 +3,8 @@ import { useState } from 'react';
 
 type ButtonPropsType = {
   type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
+  onClick?: (() => void) | ((e: React.MouseEvent<HTMLButtonElement>) => void);
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   imgSize?: string;
   imgUrl?: {
     default: string;
@@ -16,6 +17,7 @@ type ButtonPropsType = {
 export default function Button({
   type = 'button',
   onClick,
+  onSubmit,
   imgSize = 'two',
   imgUrl = {
     default: '/images/Type=Add, Size=Small, State=Default.svg',
@@ -31,11 +33,12 @@ export default function Button({
       {/* imgSize 1일 때 */}
       {imgSize === 'one' ? (
         <button
-          type={type}
+          type={onSubmit ? 'submit' : type}
           className={'h-14 tablet:min-w-[168px] min-w-16'}
           onMouseDown={() => setIsActive(true)}
           onMouseUp={() => setIsActive(false)}
           onClick={onClick}
+          onSubmit={onSubmit}
         >
           {/* 버튼 이미지 */}
           <Image

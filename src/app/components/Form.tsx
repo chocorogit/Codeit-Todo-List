@@ -31,7 +31,7 @@ export default function Form() {
         onChange={(e) => setInputValue(e.target.value)}
       />
       {/* 추가 하기 버튼 */}
-      <Button onClick={handleSubmit} />
+      <Button onSubmit={handleSubmit} />
     </form>
   );
 }

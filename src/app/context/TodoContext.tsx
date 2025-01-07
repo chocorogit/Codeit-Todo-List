@@ -6,6 +6,8 @@ export type TodoType = {
   id: number;
   name: string;
   isCompleted: boolean;
+  memo?: string;
+  imageUrl?: string;
 };
 
 // TodoContext 상태, 함수 타입
@@ -14,6 +16,7 @@ type TodoContextType = {
   addTodo: (todo: string) => void;
   toggleTodoStatus: (todoId: number, todoStatus: boolean) => void;
   deleteTodo: (itemId: number) => void;
+  updateTodo: (itemId: number, formData: FormData) => void;
 };
 
 // TodoContext 생성
@@ -22,6 +25,7 @@ export const TodoContext = createContext<TodoContextType>({
   addTodo: () => {},
   toggleTodoStatus: () => {},
   deleteTodo: () => {},
+  updateTodo: () => {},
 });
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
@@ -57,9 +61,8 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
       return alert('공백은 입력할 수 없습니다!');
     }
     const newTodo = {
-      // id: todoList.length + 1,
       name: todo,
-      // isCompleted: false,
+      memo: 'memo',
     };
 
     // API 요청 (서버에 할 일 추가)
@@ -131,9 +134,35 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // 할 일 업데이트 _________________
+
+  const updateTodo = async (itemId: number, formData: FormData) => {
+    try {
+      const res = await fetch(`/api/updateTodo/${itemId}`, {
+        method: 'PATCH',
+        body: formData, // FormData로 데이터 전송
+      });
+
+      if (!res.ok) {
+        throw new Error('투두 업데이트 실패');
+      }
+
+      const updatedTodo = await res.json(); // 응답을 JSON 형식으로 파싱
+
+      console.log('Updated Todo:', updatedTodo);
+
+      setTodoList((prev) =>
+        prev.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
+      );
+    } catch (error) {
+      console.error('투두 업데이트에 실패했습니다.', error);
+      throw error;
+    }
+  };
+
   return (
     <TodoContext.Provider
-      value={{ todoList, addTodo, toggleTodoStatus, deleteTodo }}
+      value={{ todoList, addTodo, toggleTodoStatus, deleteTodo, updateTodo }}
     >
       {children}
     </TodoContext.Provider>
