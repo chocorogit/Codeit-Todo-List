@@ -11,12 +11,12 @@ export default function Todo({ todoList }: TodoPropsType) {
   const { toggleTodoStatus } = useContext(TodoContext);
 
   return (
-    <ul className={'flex flex-col gap-4 w-full text-center'}>
+    <ul className={'flex flex-col gap-4 w-full'}>
       {todoList &&
         todoList.map((todo) => (
           <li
             className={
-              'relative w-full max-h-[50px] leading-[14px] px-[12px] py-4 border-2 border-slate-900 rounded-full'
+              'relative w-full max-h-[50px] leading-[14px] px-[12px] py-4 border-2 border-slate-900 rounded-full pl-[60px]'
             }
             key={todo.id}
           >

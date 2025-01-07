@@ -9,7 +9,7 @@ export default function DoneList() {
 
   const completeTodos = todoList.filter((todo) => todo.isCompleted === true);
   return (
-    <>
+    <div className={'w-full'}>
       {/* done 제목 */}
       <Image
         className={'mb-4'}
@@ -22,7 +22,7 @@ export default function DoneList() {
       {completeTodos.length > 0 ? (
         <Todo todoList={completeTodos} />
       ) : (
-        <div className={'flex flex-col items-center w-full h-full text-center'}>
+        <div className={'flex flex-col items-center w-full h-full'}>
           <Image
             src={'/images/empty-done.svg'}
             width={120}
@@ -36,6 +36,6 @@ export default function DoneList() {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ export default function TodoList() {
     (todo) => todo.isCompleted === false
   );
   return (
-    <div className={'mb-12 tablet:mb-0'}>
+    <div className={'w-full mb-12 laptop:mb-0'}>
       <Image
         className={'mb-4'}
         src={'/images/todo.svg'}
@@ -18,7 +18,7 @@ export default function TodoList() {
         height={36}
         alt={'todo-title-image'}
       />
-      <div className={'flex flex-col items-center w-full h-full text-center'}>
+      <div className={'flex flex-col items-center w-full h-full'}>
         {todoList.length > 0 ? (
           // <div>
           //   {todoList.map((todo) => (

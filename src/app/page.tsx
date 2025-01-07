@@ -16,10 +16,12 @@ export default function Home() {
           }
         >
           <Form />
-          {/* 할 일 리스트 영역 */}
-          <TodoList />
-          {/* 완료 리스트 영역 */}
-          <DoneList />
+          <div className={'w-full h-full laptop:flex laptop:gap-6'}>
+            {/* 할 일 리스트 영역 */}
+            <TodoList />
+            {/* 완료 리스트 영역 */}
+            <DoneList />
+          </div>
         </main>
       </div>
     </>
