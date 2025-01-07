@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header
       className={
-        'flex align-middle items-center  max-w-7xl w-full h-full tablet:px-6 px-4 mx-auto tablet:mb-6 mb-4'
+        'flex align-middle items-center max-w-7xl w-full h-full laptop:px-10 tablet:px-6 px-4 mx-auto'
       }
     >
       <h1 className={'cursor-pointer'}>

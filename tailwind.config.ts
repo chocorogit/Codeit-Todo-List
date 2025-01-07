@@ -57,6 +57,9 @@ export default {
         amber: {
           800: '#92400E',
         },
+        gray: {
+          50: '#F9FAFB',
+        },
       },
     },
     screens: {

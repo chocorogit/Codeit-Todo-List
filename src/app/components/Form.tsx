@@ -22,7 +22,7 @@ export default function Form() {
     <form
       onSubmit={handleSubmit}
       className={
-        'flex justify-between w-full h-[56px] items-center gap-2 mb-4 tablet:mb-6'
+        'flex justify-between w-full h-[56px] items-center gap-2 tablet:gap-4 mb-4 tablet:mb-6'
       }
     >
       {/* 할 일 입력창 */}

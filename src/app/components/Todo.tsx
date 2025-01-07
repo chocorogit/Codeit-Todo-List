@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { TodoContext, TodoType } from '../context/TodoContext';
 import { useContext } from 'react';
+import Link from 'next/link';
 
 type TodoPropsType = {
   todoList: TodoType[];
@@ -16,7 +17,7 @@ export default function Todo({ todoList }: TodoPropsType) {
         todoList.map((todo) => (
           <li
             className={
-              'relative w-full max-h-[50px] leading-[14px] px-[12px] py-4 border-2 border-slate-900 rounded-full pl-[60px]'
+              'relative w-full h-full max-h-[50px] leading-[14px] border-2 border-slate-900 rounded-full overflow-hidden'
             }
             key={todo.id}
           >
@@ -27,7 +28,6 @@ export default function Todo({ todoList }: TodoPropsType) {
               checked={todo.isCompleted}
               onChange={() => toggleTodoStatus(todo.id, todo.isCompleted)}
             />
-
             <label htmlFor={`todo-${todo.id}`} style={{ cursor: 'pointer' }}>
               <Image
                 className={'absolute top-1/2 translate-y-[-50%] left-[12px]'}
@@ -41,7 +41,14 @@ export default function Todo({ todoList }: TodoPropsType) {
                 alt={'unchecked-image'}
               />
             </label>
-            {todo.name}
+            <Link
+              className={`block py-4 pr-[12px] pl-[60px] ${
+                todo.isCompleted ? 'bg-violet-100 line-through' : ''
+              }`}
+              href={`/items/${todo.id}`}
+            >
+              {todo.name}
+            </Link>
           </li>
         ))}
     </ul>
