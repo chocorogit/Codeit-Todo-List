@@ -62,7 +62,7 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
     }
     const newTodo = {
       name: todo,
-      memo: 'memo',
+      // memo: 'memo',
     };
 
     // API 요청 (서버에 할 일 추가)
