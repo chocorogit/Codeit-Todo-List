@@ -2,11 +2,11 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { itemId: string } }
+  { params }: { params: Promise<{ itemId: string }> }
 ) {
   try {
     // itemId
-    const { itemId } = params;
+    const { itemId } = await params;
     // tenantId
     const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
     // 외부 API 서버 URL

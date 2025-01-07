@@ -2,36 +2,30 @@ import { NextResponse } from 'next/server';
 
 export async function DELETE(
   req: Request,
-  context: { params: { itemId: string } }
+  { params }: { params: Promise<{ itemId: string }> }
 ) {
-  const { itemId } = context.params;
+  const { itemId } = await params;
 
   try {
     const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-    // 삭제 API 호출
-    const res = await fetch(`${apiUrl}/${tenantId}/items/${itemId}`, {
+    // 외부 API 서버로 DELETE 요청 (해당 할 일 삭제)
+    const deleteRes = await fetch(`${apiUrl}/${tenantId}/items/${itemId}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
 
-    if (!res.ok) {
+    if (!deleteRes.ok) {
       throw new Error('할 일 삭제에 실패했습니다.');
     }
 
-    const data = await res.json();
-
     return NextResponse.json({
       message: '할 일 삭제 성공',
-      data: data,
     });
   } catch (err) {
-    console.error('할 일 삭제에 문제가 발생했습니다. : ', err);
+    console.error('할 일 삭제 중 오류 발생: ', err);
     return NextResponse.json(
-      { message: '할 일 삭제에 문제가 발생했습니다.' },
+      { message: '할 일 삭제 중 오류 발생' },
       { status: 500 }
     );
   }

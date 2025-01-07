@@ -38,7 +38,7 @@ export default function Button({
           onMouseDown={() => setIsActive(true)}
           onMouseUp={() => setIsActive(false)}
           onClick={onClick}
-          onSubmit={onSubmit}
+          // onSubmit={onSubmit}
         >
           {/* 버튼 이미지 */}
           <Image
