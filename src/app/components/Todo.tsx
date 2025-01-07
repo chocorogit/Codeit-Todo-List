@@ -20,12 +20,15 @@ export default function Todo({ todoList }: TodoPropsType) {
             }
             key={todo.id}
           >
-            <button
-              type={'button'}
-              onClick={() => {
-                toggleTodoStatus(todo.id, todo.isCompleted);
-              }}
-            >
+            <input
+              className={'hidden'}
+              id={`todo-${todo.id}`}
+              type='checkbox'
+              checked={todo.isCompleted}
+              onChange={() => toggleTodoStatus(todo.id, todo.isCompleted)}
+            />
+
+            <label htmlFor={`todo-${todo.id}`} style={{ cursor: 'pointer' }}>
               <Image
                 className={'absolute top-1/2 translate-y-[-50%] left-[12px]'}
                 src={
@@ -37,7 +40,7 @@ export default function Todo({ todoList }: TodoPropsType) {
                 height={32}
                 alt={'unchecked-image'}
               />
-            </button>
+            </label>
             {todo.name}
           </li>
         ))}
