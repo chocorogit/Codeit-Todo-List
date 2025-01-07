@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 export async function DELETE(
   req: Request,
-  context: { params: { itemId: string } }
+  { params }: { params: { itemId: string } }
 ) {
-  const { itemId } = context.params;
+  const { itemId } = await params;
   try {
     // tenantId
     const tenantId = process.env.NEXT_PUBLIC_TENANT_ID;
