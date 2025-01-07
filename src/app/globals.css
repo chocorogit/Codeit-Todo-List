@@ -29,5 +29,15 @@
 }
 
 body {
-  font-family: 'NanumSquare';
+  font-family: 'NanumSquare', san-serif;
+}
+
+/* 커스텀 스크롤바 */
+textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #fde68a;
+  border-radius: 4px;
 }
