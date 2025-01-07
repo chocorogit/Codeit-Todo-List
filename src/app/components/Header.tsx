@@ -12,14 +12,14 @@ export default function Header() {
         <Link href='/'>
           <Image
             className={'tablet:hidden'}
-            src='images/mobile-logo.svg'
+            src='/images/mobile-logo.svg'
             width='71'
             height='40'
             alt='doit-mobile-logo'
           />
           <Image
             className={'hidden tablet:block'}
-            src='images/logo.svg'
+            src='/images/logo.svg'
             width='151'
             height='40'
             alt='doit-logo'
