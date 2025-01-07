@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 투두리스트 프로젝트
 
-## Getting Started
+## 프로젝트 설명
 
-First, run the development server:
+할 일을 관리하는 투두리스트 애플리케이션
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 사용 방법
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 할 일 목록 페이지 (`/`)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- '로고' 버튼을 클릭하면 메인 페이지로 이동합니다.
+- 할 일은 진행 중인 것과 완료된 것으로 구분되어 표시됩니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### 할 일 추가
+- 입력창에 할 일을 작성하고 `추가하기` 버튼을 클릭하거나 엔터 키로 추가합니다.
 
-## Learn More
+#### 할 일 완료/취소
+- 진행 중인 할 일 항목의 왼쪽 버튼을 클릭하면 체크 표시가 되고, 완료된 항목은 체크 표시가 해제됩니다.
 
-To learn more about Next.js, take a look at the following resources:
+### 할 일 상세 페이지 (`/items/{itemId}`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 할 일 수정
+- 항목을 클릭하여 이름, 상태, 메모, 이미지를 수정할 수 있습니다.
+- 이미지 파일은 영어 이름만 허용되며, 크기는 5MB 이하여야 합니다.
+- 수정 후 `수정 완료` 버튼을 클릭하면 변경사항이 반영됩니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### 할 일 삭제
+- `삭제하기` 버튼을 클릭하여 해당 할 일을 삭제할 수 있습니다.
 
-## Deploy on Vercel
+## 기술 스택
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Frontend**: Next.js
+- **Styling**: Tailwind CSS
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
