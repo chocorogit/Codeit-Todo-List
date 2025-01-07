@@ -22,7 +22,7 @@ export default function Form() {
     <form
       onSubmit={handleSubmit}
       className={
-        'flex justify-between w-full h-[56px] items-center gap-2 tablet:gap-4 mb-4 tablet:mb-6'
+        'flex justify-between w-full items-center gap-2 tablet:gap-4 mb-4 tablet:mb-6 tablet:pt-6 pt-4'
       }
     >
       {/* 할 일 입력창 */}
@@ -31,11 +31,7 @@ export default function Form() {
         onChange={(e) => setInputValue(e.target.value)}
       />
       {/* 추가 하기 버튼 */}
-      <Button
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        addTodo={addTodo}
-      />
+      <Button onClick={handleSubmit} />
     </form>
   );
 }

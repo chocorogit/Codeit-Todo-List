@@ -43,7 +43,7 @@ export default function Button({
               !isActive
                 ? imgUrl.default
                 : imgUrl.active
-                ? imgUrl.active
+                ? imgUrl.default
                 : imgUrl.default
             }
             width={168}
@@ -68,7 +68,7 @@ export default function Button({
               !isActive
                 ? imgUrl.default
                 : imgUrl.active
-                ? imgUrl.active
+                ? imgUrl.default
                 : imgUrl.default
             }
             width={56}
