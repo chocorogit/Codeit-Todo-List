@@ -36,9 +36,11 @@ export async function PATCH(
       }
 
       const uploadData = await uploadRes.json();
-      imageUrl = uploadData.imageUrl; // 업로드된 이미지 URL
+      imageUrl = await uploadData.url; // 업로드된 이미지 URL
+      // console.log('uploadData.url________', uploadData.url);
     }
 
+    console.log('imageUrl________', imageUrl);
     // 1. 기존 데이터 가져오기 (GET 요청)
     const getItemRes = await fetch(`${apiUrl}/${tenantId}/items/${itemId}`);
     if (!getItemRes.ok) {
@@ -46,12 +48,11 @@ export async function PATCH(
     }
     const existingItem = await getItemRes.json();
 
-    // 2. 기존 항목과 병합하여 업데이트할 데이터 준비
     const updatedData = {
-      name: name ?? existingItem.name, // name이 없으면 기존 값 사용
-      isCompleted: isCompleted ?? existingItem.isCompleted, // isCompleted가 없으면 기존 값 사용
-      memo: memo ?? (existingItem.memo || ''), // memo가 없으면 빈 문자열로 추가
-      imageUrl: imageUrl ?? (existingItem.imageUrl || ''), // imageUrl이 없으면 빈 문자열로 추가
+      name: name ?? (name || existingItem.name),
+      isCompleted: isCompleted ?? isCompleted,
+      memo: memo ?? (memo || existingItem.memo),
+      imageUrl: imageUrl ?? (imageUrl || existingItem.imageUrl),
     };
 
     // 3. 외부 API 서버로 PATCH 요청 (새로운 데이터 전송)

@@ -14,16 +14,16 @@ export async function GET(
 
     const res = await fetch(`${apiUrl}/${tenantId}/items/${itemId}`);
     if (!res.ok) {
-      throw new Error(`투두 ${itemId} detail 가져오기 실패`);
+      throw new Error(`투두 ${itemId} memo, imageUrl 가져오기 실패`);
     }
 
     const todoDetails = await res.json();
     // console.log('todoDetails________', todoDetails);
     return NextResponse.json(todoDetails);
   } catch (error) {
-    console.error(`투두  detail 가져오기 실패:`, error);
+    console.error(`투두  memo, imageUrl 가져오기 실패:`, error);
     return NextResponse.json(
-      { error: `detail 가져오기에 실패했습니다` },
+      { error: `memo, imageUrl 가져오기에 실패했습니다` },
       { status: 500 }
     );
   }

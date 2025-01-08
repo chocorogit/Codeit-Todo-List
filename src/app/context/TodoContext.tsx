@@ -17,6 +17,7 @@ type TodoContextType = {
   toggleTodoStatus: (todoId: number, todoStatus: boolean) => void;
   deleteTodo: (itemId: number) => void;
   updateTodo: (itemId: number, formData: FormData) => void;
+  fetchTodoDetails: (itemId: number) => void;
 };
 
 // TodoContext 생성
@@ -26,6 +27,7 @@ export const TodoContext = createContext<TodoContextType>({
   toggleTodoStatus: () => {},
   deleteTodo: () => {},
   updateTodo: () => {},
+  fetchTodoDetails: () => {},
 });
 
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
@@ -61,18 +63,18 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
       }
       const data = await res.json();
 
-      // console.log('data___', data);
+      // console.log('getTodoDetailsdata___', data);
 
       // 해당 todoId의 속성을 추가/업데이트
       setTodoList((prevList) =>
-        prevList.map((todo) =>
-          todo.id === itemId
-            ? { ...todo, memo: data.memo, imageURL: data.imageURL }
-            : todo
-        )
+        prevList.map((todo) => {
+          return todo.id === itemId
+            ? { ...todo, memo: data.memo, imageUrl: data.imageUrl }
+            : todo;
+        })
       );
     } catch (error) {
-      console.error('투두 itemId 불러오기 실패했습니다2 :', error);
+      console.error('투두 itemId 불러오기 실패했습니다 :', error);
     }
   };
 
@@ -176,6 +178,8 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
 
       const updatedTodo = await res.json();
 
+      console.log('updatedTodo.data_________', updatedTodo.data);
+
       setTodoList((prev) =>
         prev.map((todo) =>
           todo.id === updatedTodo.data.id ? updatedTodo.data : todo
@@ -189,7 +193,14 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <TodoContext.Provider
-      value={{ todoList, addTodo, toggleTodoStatus, deleteTodo, updateTodo }}
+      value={{
+        todoList,
+        addTodo,
+        toggleTodoStatus,
+        deleteTodo,
+        updateTodo,
+        fetchTodoDetails,
+      }}
     >
       {children}
     </TodoContext.Provider>

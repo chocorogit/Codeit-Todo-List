@@ -24,11 +24,8 @@ export default function Detail() {
     if (selectedTodo) {
       setInputValue(selectedTodo.name || '');
       setIsCompleted(selectedTodo.isCompleted || false);
-      if (selectedTodo.memo) {
-        setMemo(selectedTodo.memo);
-      } else {
-        setMemo('');
-      }
+      setMemo(selectedTodo.memo || '');
+      setImageUrl(selectedTodo.imageUrl || '');
     }
   }, [selectedTodo]);
 
@@ -124,7 +121,7 @@ export default function Detail() {
       >
         <div
           className={
-            'absolute top-1/2 translate-y-[-50%] left-1/2 translate-x-[-50%] flex items-center gap-4'
+            'absolute top-1/2 translate-y-[-50%] left-1/2 translate-x-[-50%] flex items-center gap-4 cursor-pointer'
           }
         >
           <Image
