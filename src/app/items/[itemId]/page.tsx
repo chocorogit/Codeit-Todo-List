@@ -22,8 +22,13 @@ export default function Detail() {
 
   useEffect(() => {
     if (selectedTodo) {
-      setInputValue(selectedTodo.name);
-      setIsCompleted(selectedTodo.isCompleted);
+      setInputValue(selectedTodo.name || '');
+      setIsCompleted(selectedTodo.isCompleted || false);
+      if (selectedTodo.memo) {
+        setMemo(selectedTodo.memo);
+      } else {
+        setMemo('');
+      }
     }
   }, [selectedTodo]);
 
@@ -69,8 +74,6 @@ export default function Detail() {
     reader.onloadend = () => {
       if (reader.result && typeof reader.result === 'string') {
         setImageUrl(reader.result);
-        // console.log('reader ________', reader);
-        // console.log('reader.result ________', reader.result);
       }
     };
   };

@@ -44,8 +44,35 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
 
       // 가져온 Todo 데이터를 상태에 저장
       setTodoList(todos || []);
+
+      const { data: todoList } = data;
+      // 각 todo의 상세 정보를 가져오기
+      todoList.map((todo: TodoType) => fetchTodoDetails(todo.id));
     } catch (err) {
       console.error('투두리스트 가져오기 문제 발생:', err);
+    }
+  };
+
+  const fetchTodoDetails = async (itemId: number) => {
+    try {
+      const res = await fetch(`/api/getTodoDetails/${itemId}`);
+      if (!res.ok) {
+        throw new Error(`투두 itemId 불러오기 실패: ${itemId}`);
+      }
+      const data = await res.json();
+
+      // console.log('data___', data);
+
+      // 해당 todoId의 속성을 추가/업데이트
+      setTodoList((prevList) =>
+        prevList.map((todo) =>
+          todo.id === itemId
+            ? { ...todo, memo: data.memo, imageURL: data.imageURL }
+            : todo
+        )
+      );
+    } catch (error) {
+      console.error('투두 itemId 불러오기 실패했습니다2 :', error);
     }
   };
 
@@ -147,12 +174,12 @@ export const TodoProvider = ({ children }: { children: ReactNode }) => {
         throw new Error('투두 업데이트 실패');
       }
 
-      const updatedTodo = await res.json(); // 응답을 JSON 형식으로 파싱
-
-      console.log('Updated Todo:', updatedTodo);
+      const updatedTodo = await res.json();
 
       setTodoList((prev) =>
-        prev.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo))
+        prev.map((todo) =>
+          todo.id === updatedTodo.data.id ? updatedTodo.data : todo
+        )
       );
     } catch (error) {
       console.error('투두 업데이트에 실패했습니다.', error);
